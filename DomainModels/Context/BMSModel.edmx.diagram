@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3e78a4ad672848089ad81465d6acf402" Name="Diagram1" ZoomLevel="44">
+        <EntityTypeShape EntityType="BMSModel.Country" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="BMSModel.State" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="BMSModel.Registration" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="BMSModel.LoginUser" Width="1.5" PointX="3.375" PointY="3.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
