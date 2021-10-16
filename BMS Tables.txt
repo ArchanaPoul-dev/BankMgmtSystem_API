@@ -1,0 +1,89 @@
+USE [BMS]
+GO
+
+/****** Object:  Table [dbo].[Registration]    Script Date: 17-10-2021 00:32:14 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Registration](
+	[Id] [int] NOT NULL,
+	[Name] [varchar](50) NOT NULL,
+	[UserName] [varchar](50) NOT NULL,
+	[Password] [varchar](50) NOT NULL,
+	[GaurdianType] [varchar](5) NOT NULL,
+	[GaurdianName] [varchar](50) NOT NULL,
+	[Address] [varchar](50) NOT NULL,
+	[Citizenship] [varchar](5) NOT NULL,
+	[Country] [int] NULL,
+	[State] [int] NULL,
+	[EmailAddress] [varchar](50) NOT NULL,
+	[Gender] [varchar](1) NOT NULL,
+	[MaritalStatus] [varchar](50) NOT NULL,
+	[ContactNo] [varchar](10) NOT NULL,
+	[DOB] [date] NOT NULL,
+	[RegDate] [date] NOT NULL,
+	[AccountType] [varchar](50) NOT NULL,
+	[CitizenStatus] [varchar](50) NOT NULL,
+	[InitialDepAmt] [varchar](10) NOT NULL,
+	[IDProofType] [varchar](50) NOT NULL,
+	[IDDocNo] [varchar](50) NOT NULL,
+	[RefAccholderName] [varchar](50) NOT NULL,
+	[RefAccholderNo] [varchar](50) NOT NULL,
+	[RefAccholderAddress] [varchar](50) NOT NULL,
+ CONSTRAINT [PK_Registration] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+---------------------------------------------------------------------------------------------------------
+USE [BMS]
+GO
+
+/****** Object:  Table [dbo].[States]    Script Date: 17-10-2021 00:32:48 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[States](
+	[Id] [int] NOT NULL,
+	[Name] [varchar](50) NOT NULL,
+	[countryid] [int] NOT NULL,
+ CONSTRAINT [PK_States] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+-------------------------------------------------------------------------------
+USE [BMS]
+GO
+
+/****** Object:  Table [dbo].[Countries]    Script Date: 17-10-2021 00:33:07 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Countries](
+	[Id] [int] NOT NULL,
+	[Name] [varchar](50) NOT NULL,
+ CONSTRAINT [PK_Countries] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+-------------------------------------------------------------------------------------
