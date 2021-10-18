@@ -67,6 +67,9 @@
     <Compile Include="Context\Country.cs">
       <DependentUpon>BMSModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Context\Loan.cs">
+      <DependentUpon>BMSModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Context\LoginUser.cs">
       <DependentUpon>BMSModel.tt</DependentUpon>
     </Compile>

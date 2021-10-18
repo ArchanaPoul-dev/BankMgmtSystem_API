@@ -14,7 +14,14 @@ namespace DomainModels.Context
     
     public partial class Country
     {
+        public Country()
+        {
+            this.States = new HashSet<State>();
+        }
+    
         public int Id { get; set; }
         public string Name { get; set; }
+    
+        public virtual ICollection<State> States { get; set; }
     }
 }

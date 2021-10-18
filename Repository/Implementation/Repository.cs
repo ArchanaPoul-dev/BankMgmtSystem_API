@@ -13,9 +13,9 @@ namespace Repository.Implementation
     {
         protected readonly BMSEntities2 _context=null;
         private DbSet<TEntity> dbSet=null ;
-        public Repository(DbContext context)
+        public Repository()
         {
-            _context = new BMSEntities2();
+            _context =new BMSEntities2();
             dbSet = _context.Set<TEntity>();
         }
 

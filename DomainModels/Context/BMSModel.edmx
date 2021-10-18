@@ -12,6 +12,29 @@
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="Loan">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RegId" Type="int" Nullable="false" />
+          <Property Name="loantype" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="loanamt" Type="int" Nullable="false" />
+          <Property Name="loanapplydate" Type="date" Nullable="false" />
+          <Property Name="loanissuedate" Type="date" Nullable="false" />
+          <Property Name="roi" Type="int" Nullable="false" />
+          <Property Name="coursefees" Type="int" Nullable="false" />
+          <Property Name="course" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="fathername" Type="varchar" MaxLength="50" />
+          <Property Name="fatherexp" Type="int" />
+          <Property Name="fexpcurrentcmpny" Type="int" />
+          <Property Name="rationcardno" Type="int" />
+          <Property Name="annualincome" Type="int" />
+          <Property Name="companyname" Type="varchar" MaxLength="50" />
+          <Property Name="designation" Type="varchar" MaxLength="50" />
+          <Property Name="totalexp" Type="int" />
+          <Property Name="expwithcurcmpny" Type="int" />
+        </EntityType>
         <EntityType Name="LoginUser">
           <Key>
             <PropertyRef Name="username" />
@@ -23,7 +46,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="UserName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
@@ -56,11 +79,28 @@
           <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="countryid" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK_States_Countries">
+          <End Role="Countries" Type="Self.Countries" Multiplicity="1" />
+          <End Role="States" Type="Self.States" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Countries">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="States">
+              <PropertyRef Name="countryid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="BMSModelStoreContainer">
           <EntitySet Name="Countries" EntityType="Self.Countries" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Loan" EntityType="Self.Loan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LoginUser" EntityType="Self.LoginUser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Registration" EntityType="Self.Registration" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="States" EntityType="Self.States" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_States_Countries" Association="Self.FK_States_Countries">
+            <End Role="Countries" EntitySet="Countries" />
+            <End Role="States" EntitySet="States" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -69,8 +109,13 @@
         <EntityContainer Name="BMSEntities2" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Countries" EntityType="BMSModel.Country" />
           <EntitySet Name="States" EntityType="BMSModel.State" />
-          <EntitySet Name="Registrations" EntityType="BMSModel.Registration" />
           <EntitySet Name="LoginUsers" EntityType="BMSModel.LoginUser" />
+          <AssociationSet Name="FK_States_Countries" Association="BMSModel.FK_States_Countries">
+            <End Role="Country" EntitySet="Countries" />
+            <End Role="State" EntitySet="States" />
+          </AssociationSet>
+          <EntitySet Name="Loans" EntityType="BMSModel.Loan" />
+          <EntitySet Name="Registrations" EntityType="BMSModel.Registration" />
         </EntityContainer>
         <EntityType Name="Country">
           <Key>
@@ -78,6 +123,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="States" Relationship="BMSModel.FK_States_Countries" FromRole="Country" ToRole="State" />
         </EntityType>
         <EntityType Name="State">
           <Key>
@@ -86,6 +132,49 @@
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="countryid" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Country" Relationship="BMSModel.FK_States_Countries" FromRole="State" ToRole="Country" />
+        </EntityType>
+        <EntityType Name="LoginUser">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_States_Countries">
+          <End Type="BMSModel.Country" Role="Country" Multiplicity="1" />
+          <End Type="BMSModel.State" Role="State" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="State">
+              <PropertyRef Name="countryid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Loan">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RegId" Type="Int32" Nullable="false" />
+          <Property Name="loantype" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="loanamt" Type="Int32" Nullable="false" />
+          <Property Name="loanapplydate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="loanissuedate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="roi" Type="Int32" Nullable="false" />
+          <Property Name="coursefees" Type="Int32" Nullable="false" />
+          <Property Name="course" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fathername" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fatherexp" Type="Int32" />
+          <Property Name="fexpcurrentcmpny" Type="Int32" />
+          <Property Name="rationcardno" Type="Int32" />
+          <Property Name="annualincome" Type="Int32" />
+          <Property Name="companyname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="designation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="totalexp" Type="Int32" />
+          <Property Name="expwithcurcmpny" Type="Int32" />
         </EntityType>
         <EntityType Name="Registration">
           <Key>
@@ -116,13 +205,6 @@
           <Property Name="RefAccholderNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="RefAccholderAddress" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="LoginUser">
-          <Key>
-            <PropertyRef Name="username" />
-          </Key>
-          <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -142,6 +224,38 @@
               <MappingFragment StoreEntitySet="States">
                 <ScalarProperty Name="countryid" ColumnName="countryid" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoginUsers">
+            <EntityTypeMapping TypeName="BMSModel.LoginUser">
+              <MappingFragment StoreEntitySet="LoginUser">
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Loans">
+            <EntityTypeMapping TypeName="BMSModel.Loan">
+              <MappingFragment StoreEntitySet="Loan">
+                <ScalarProperty Name="expwithcurcmpny" ColumnName="expwithcurcmpny" />
+                <ScalarProperty Name="totalexp" ColumnName="totalexp" />
+                <ScalarProperty Name="designation" ColumnName="designation" />
+                <ScalarProperty Name="companyname" ColumnName="companyname" />
+                <ScalarProperty Name="annualincome" ColumnName="annualincome" />
+                <ScalarProperty Name="rationcardno" ColumnName="rationcardno" />
+                <ScalarProperty Name="fexpcurrentcmpny" ColumnName="fexpcurrentcmpny" />
+                <ScalarProperty Name="fatherexp" ColumnName="fatherexp" />
+                <ScalarProperty Name="fathername" ColumnName="fathername" />
+                <ScalarProperty Name="course" ColumnName="course" />
+                <ScalarProperty Name="coursefees" ColumnName="coursefees" />
+                <ScalarProperty Name="roi" ColumnName="roi" />
+                <ScalarProperty Name="loanissuedate" ColumnName="loanissuedate" />
+                <ScalarProperty Name="loanapplydate" ColumnName="loanapplydate" />
+                <ScalarProperty Name="loanamt" ColumnName="loanamt" />
+                <ScalarProperty Name="loantype" ColumnName="loantype" />
+                <ScalarProperty Name="RegId" ColumnName="RegId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -173,14 +287,6 @@
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="LoginUsers">
-            <EntityTypeMapping TypeName="BMSModel.LoginUser">
-              <MappingFragment StoreEntitySet="LoginUser">
-                <ScalarProperty Name="password" ColumnName="password" />
-                <ScalarProperty Name="username" ColumnName="username" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

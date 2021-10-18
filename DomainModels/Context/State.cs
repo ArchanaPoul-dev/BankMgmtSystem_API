@@ -17,5 +17,7 @@ namespace DomainModels.Context
         public int Id { get; set; }
         public string Name { get; set; }
         public int countryid { get; set; }
+    
+        public virtual Country Country { get; set; }
     }
 }

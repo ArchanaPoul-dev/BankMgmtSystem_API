@@ -15,12 +15,16 @@ namespace APIService.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class LoginController : ApiController
     {
-        protected readonly BMSEntities2 _context = null;
+
+        private IRepository<Registration> _obj;
+        public LoginController()
+        {
+            this._obj = new Repository<Registration>();
+        }
 
         [HttpPost]
-        public IEnumerable<Registration> GetAll( LoginUser loginuser)
+        public IEnumerable<Registration> GetbyUserName( LoginUser loginuser)
         {
-            IRepository<Registration> _obj = new Repository<Registration>(_context);
             return _obj.GetAll().Where(e => e.UserName == loginuser.username);
         }
     }

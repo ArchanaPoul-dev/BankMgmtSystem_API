@@ -27,7 +27,8 @@ namespace DomainModels.Context
     
         public DbSet<Country> Countries { get; set; }
         public DbSet<State> States { get; set; }
-        public DbSet<Registration> Registrations { get; set; }
         public DbSet<LoginUser> LoginUsers { get; set; }
+        public DbSet<Loan> Loans { get; set; }
+        public DbSet<Registration> Registrations { get; set; }
     }
 }
