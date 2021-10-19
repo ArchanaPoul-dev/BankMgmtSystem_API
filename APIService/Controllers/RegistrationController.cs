@@ -26,10 +26,19 @@ namespace APIService.Controllers
             var data=_obj.GetAll();
             return data;
         }
-
+        private int RandomNumber(int min, int max)
+        {
+            Random random = new Random();
+            return random.Next(min, max);
+        }
         [HttpPost]
+        
         public string Add(Registration _reg)
-        {           
+        {
+
+            int RndCustId = RandomNumber(1, 1000);
+            _reg.Id = "R" + RndCustId;
+           
             _obj.Add(_reg);
             _obj.Save();
             var id = _reg.Id;
@@ -39,6 +48,14 @@ namespace APIService.Controllers
         {
            var data=_obj.GetById(id);
             return data;
+        }
+
+       [HttpPost]
+        public IEnumerable<Registration> GetbyUser(string uname)
+        {          
+                return _obj.GetAll().Where(e => e.UserName == uname);
+            
+
         }
 
     }

@@ -15,7 +15,7 @@ namespace DomainModels.Context
     public partial class Loan
     {
         public int Id { get; set; }
-        public int RegId { get; set; }
+        public string RegId { get; set; }
         public string loantype { get; set; }
         public int loanamt { get; set; }
         public System.DateTime loanapplydate { get; set; }

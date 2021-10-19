@@ -25,7 +25,12 @@ namespace APIService.Controllers
         [HttpPost]
         public IEnumerable<Registration> GetbyUserName( LoginUser loginuser)
         {
-            return _obj.GetAll().Where(e => e.UserName == loginuser.username);
+            return _obj.GetAll().Where(e => e.UserName == loginuser.username && e.Password==loginuser.password);
+            //if (_obj.GetAll().Any(e => e.UserName == loginuser.username))
+            // return _obj.GetAll().Where(e => e.UserName == loginuser.username);
+            //else
+            //{ throw Exception; }
+
         }
     }
 }
