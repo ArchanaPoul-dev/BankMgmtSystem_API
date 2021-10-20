@@ -20,8 +20,7 @@ namespace APIService.Controllers
         }
         [HttpPost]
         public int LoanApplication(Loan _loan)  
-        {
-            _loan.RegId = "R";
+        {            
             _obj.Add(_loan);
             _obj.Save();
             var id = _loan.Id;

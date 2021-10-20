@@ -31,8 +31,7 @@ namespace APIService.Controllers
             Random random = new Random();
             return random.Next(min, max);
         }
-        [HttpPost]
-        
+        [HttpPost]        
         public string Add(Registration _reg)
         {
 
@@ -44,18 +43,28 @@ namespace APIService.Controllers
             var id = _reg.Id;
             return id.ToString();
         }
-        public Registration getbyId(int id)
+
+        [HttpPost]
+        [ActionName("Update")]
+        public string Update(Registration _reg)
+        {
+            _obj.Update(_reg);
+            _obj.Save();
+            var id = _reg.Id;
+            return id.ToString();
+        }
+            public Registration getbyId(string id)
         {
            var data=_obj.GetById(id);
             return data;
         }
 
-       [HttpPost]
+       
+        [ActionName("GetbyUser")]
         public IEnumerable<Registration> GetbyUser(string uname)
         {          
-                return _obj.GetAll().Where(e => e.UserName == uname);
-            
-
+            var data= _obj.GetAll().Where(e => e.UserName == uname);
+            return data;
         }
 
     }

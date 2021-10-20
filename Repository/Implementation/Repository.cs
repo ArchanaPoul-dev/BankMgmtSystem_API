@@ -2,6 +2,7 @@
 using Repository.Abstraction;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
@@ -35,14 +36,15 @@ namespace Repository.Implementation
             return dbSet.ToList();
         }
 
-        public TEntity GetById(int Id)
+        public TEntity GetById(string Id)
         {
             return dbSet.Find(Id);
         }
 
         public void Update(TEntity entity)
         {
-            throw new NotImplementedException();
+            dbSet.Attach(entity);
+            _context.Entry(entity).State = EntityState.Modified;
         }
 
         public void Save()

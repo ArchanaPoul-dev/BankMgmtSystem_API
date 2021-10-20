@@ -10,8 +10,8 @@ namespace Repository.Abstraction
     {
         IEnumerable<TEntity> GetAll();
 
-        TEntity GetById(int Id);
-
+        TEntity GetById(string Id);
+        
         void Add(TEntity entity);
 
         void Update(TEntity entity);
